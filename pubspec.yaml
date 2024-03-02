@@ -1,7 +1,8 @@
 name: make_secure_screenshoot
 description: "Plugin for blocking screenshots"
 version: 0.0.1
-homepage:
+homepage: "https://github.com/miklNight/make_secure_screenshoot"
+repository: "https://github.com/miklNight/make_secure_screenshoot"
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
