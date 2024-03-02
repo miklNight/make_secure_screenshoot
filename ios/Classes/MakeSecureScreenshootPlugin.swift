@@ -37,9 +37,10 @@ public class MakeSecureScreenshootPlugin: NSObject, FlutterPlugin {
 
 
 class SecureWindowManager {
-    private var window: UIWindow
     public var isSecure = false
 
+    private var window: UIWindow
+    private var secureField: UITextField? = nil
     init(window: UIWindow) {
         self.window = window
     }
@@ -66,11 +67,13 @@ class SecureWindowManager {
 
         self.window.addSubview(label)
         self.isSecure = true;
+        self.secureField = field;
         return field
     }
 
     func removeSecure() {
         self.isSecure = false;
+        self.secureField?.isSecureTextEntry = false;
         for subview in self.window.subviews {
             if let textField = subview as? UITextField, textField.tag == 100 {
                 textField.removeFromSuperview()
