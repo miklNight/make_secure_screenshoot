@@ -14,4 +14,18 @@ class MethodChannelMakeSecureScreenshoot extends MakeSecureScreenshootPlatform {
     final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
+  @override
+  Future<bool?> makeSecure() async {
+    return await methodChannel.invokeMethod<bool>('makeSecure');
+  }
+  @override
+  Future<bool?> removeSecure() async {
+    return  await methodChannel.invokeMethod<bool>('removeSecure');
+
+  }
+  @override
+  Future<bool?> getSecureStatus() async {
+    final status = await methodChannel.invokeMethod<bool>('getSecureStatus');
+    return status; //?? false;
+  }
 }

@@ -27,11 +27,15 @@ abstract class MakeSecureScreenshootPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<String?> makeSecureScreenshoot() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<bool?> makeSecure() {
+    throw UnimplementedError('makeSecure() has not been implemented.');
   }
 
-  Future<String?> deSecureScreenshoot() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
+  Future<bool?> removeSecure() {
+    throw UnimplementedError('removeSecure() has not been implemented.');
+  }
+
+  Future<bool?> getSecureStatus() {
+    throw UnimplementedError('removeSecure() has not been implemented.');
   }
 }

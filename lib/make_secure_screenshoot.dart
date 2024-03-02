@@ -1,4 +1,3 @@
-
 import 'make_secure_screenshoot_platform_interface.dart';
 
 class MakeSecureScreenshoot {
@@ -6,10 +5,15 @@ class MakeSecureScreenshoot {
     return MakeSecureScreenshootPlatform.instance.getPlatformVersion();
   }
 
-  Future<String?> makeSecureScreenshoot() {
-    return MakeSecureScreenshootPlatform.instance.makeSecureScreenshoot();
+  Future<bool?> makeSecure() {
+    return MakeSecureScreenshootPlatform.instance.makeSecure();
   }
-  Future<String?> deSecureScreenshoot() {
-    return MakeSecureScreenshootPlatform.instance.deSecureScreenshoot();
+
+  Future<bool?> removeSecure() {
+    return MakeSecureScreenshootPlatform.instance.removeSecure();
+  }
+
+  Future<bool?> getSecureStatus() {
+    return MakeSecureScreenshootPlatform.instance.removeSecure();
   }
 }
