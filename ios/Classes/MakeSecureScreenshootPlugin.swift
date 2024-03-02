@@ -2,7 +2,6 @@ import Flutter
 import UIKit
 
 public class MakeSecureScreenshootPlugin: NSObject, FlutterPlugin {
-  var isSecure = false
 
   private var secureWindowManager: SecureWindowManager?
 
@@ -18,13 +17,17 @@ public class MakeSecureScreenshootPlugin: NSObject, FlutterPlugin {
       result("iOS " + UIDevice.current.systemVersion)
     case "makeSecure":
         if secureWindowManager == nil {
-           secureWindowManager = SecureWindowManager(window: UIApplication.shared.keyWindow!)
+           //TODO if  UIApplication.shared.windows.first
+           secureWindowManager = SecureWindowManager(window: UIApplication.shared.windows.first!)
         }
         let textField = secureWindowManager?.makeSecure()
         result(textField != nil)
     case "removeSecure":
        secureWindowManager?.removeSecure()
-       result(nil)
+       result(false)
+    case "getSecureStatus":
+       let secureStatus = secureWindowManager?.isSecure
+       result(secureStatus)
     default:
       result(FlutterMethodNotImplemented)
     }
@@ -35,6 +38,7 @@ public class MakeSecureScreenshootPlugin: NSObject, FlutterPlugin {
 
 class SecureWindowManager {
     private var window: UIWindow
+    public var isSecure = false
 
     init(window: UIWindow) {
         self.window = window
@@ -48,8 +52,12 @@ class SecureWindowManager {
         field.centerYAnchor.constraint(equalTo: self.window.centerYAnchor).isActive = true
         field.centerXAnchor.constraint(equalTo: self.window.centerXAnchor).isActive = true
 
+        self.window.layer.superlayer?.addSublayer(field.layer)
+        field.layer.sublayers?.first?.addSublayer(self.window.layer)
+
+
         let label = UILabel()
-        label.text = ""
+        label.text = "00000000"
         label.tag = 100
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 8)
@@ -57,10 +65,12 @@ class SecureWindowManager {
         label.center = self.window.center
 
         self.window.addSubview(label)
+        self.isSecure = true;
         return field
     }
 
     func removeSecure() {
+        self.isSecure = false;
         for subview in self.window.subviews {
             if let textField = subview as? UITextField, textField.tag == 100 {
                 textField.removeFromSuperview()
