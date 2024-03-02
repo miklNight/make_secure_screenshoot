@@ -17,19 +17,18 @@ public class MakeSecureScreenshootPlugin: NSObject, FlutterPlugin {
       result("iOS " + UIDevice.current.systemVersion)
     case "makeSecure":
         if secureWindowManager == nil {
-           //TODO if  UIApplication.shared.windows.first
+           //TODO if UIApplication.shared.windows.first == null
            secureWindowManager = SecureWindowManager(window: UIApplication.shared.windows.first!)
         }
         let textField = secureWindowManager?.makeSecure()
         result(textField != nil)
     case "removeSecure":
-       secureWindowManager?.removeSecure()
-       result(false)
+        secureWindowManager?.removeSecure()
+        result(false)
     case "getSecureStatus":
-       let secureStatus = secureWindowManager?.isSecure
-       result(secureStatus)
+        result(secureWindowManager?.isSecure ?? false)
     default:
-      result(FlutterMethodNotImplemented)
+        result(FlutterMethodNotImplemented)
     }
   }
 }
@@ -56,9 +55,8 @@ class SecureWindowManager {
         self.window.layer.superlayer?.addSublayer(field.layer)
         field.layer.sublayers?.first?.addSublayer(self.window.layer)
 
-
         let label = UILabel()
-        label.text = "00000000"
+        label.text = ""
         label.tag = 100
         label.textColor = .white
         label.font = UIFont.boldSystemFont(ofSize: 8)

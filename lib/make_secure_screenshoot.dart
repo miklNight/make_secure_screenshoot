@@ -14,6 +14,6 @@ class MakeSecureScreenshoot {
   }
 
   Future<bool?> getSecureStatus() {
-    return MakeSecureScreenshootPlatform.instance.removeSecure();
+    return MakeSecureScreenshootPlatform.instance.getSecureStatus();
   }
 }
